@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="lenis lenis-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Caíque Alonso | Landing Pages</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="cursor-ponto"></div>
+    <div class="cursor-aura"></div>
+    
+    <div class="conteiner-particulas">
+        <div class="particula particula-1"></div>
+        <div class="particula particula-2"></div>
+        <div class="particula particula-3"></div>
+        <div class="particula particula-4"></div>
+        <div class="particula particula-5"></div>
+    </div>
+
+    <div class="ruido-fundo"></div>
+    <canvas id="canvas-rede-neural"></canvas>
+    
+    <main id="envoltorio-rolagem-suave">
+        <div id="conteudo-rolagem-suave">
+
+            <section id="secao-inicio">
+                <div class="conteiner-texto-cinetico">
+                    <div class="texto-cinetico t-esquerda fonte-destaque">LANDING PAGES</div>
+                    <div class="texto-cinetico t-direita fonte-destaque preenchido">DE ALTA</div>
+                    <div class="texto-cinetico t-esquerda fonte-destaque">CONVERSÃO</div>
+                </div>
+                
+                <div class="envoltorio-conteudo-inicio">
+                    <div class="coluna-textos-inicio animacao-entrada-esq-mobile">
+                        <h2 class="efeito-falha-digital" data-text="Olá, eu sou Caíque Alonso">Olá, eu sou Caíque Alonso</h2>
+                        <h1 class="titulo-principal titulo-gradiente-animado">Desenvolvedor de Landing Pages de alta perfomance.</h1>
+                        <p class="paragrafo-inicio">Codificando o futuro através de experiências digitais imersivas e responsivas.</p>
+                    </div>
+                    
+                    <div class="coluna-visual-inicio animacao-entrada-dir-mobile">
+                        <div class="moldura-imagem-fluida">
+                            <div class="bolha-fundo"></div>
+                            <img src="https://i.ibb.co/qLGzsQvd/eusembgnew.png" alt="Caíque Alonso" class="foto-perfil-inicio">
+                        </div>
+                        
+                        <div class="bloco-acao-central elemento-com-interacao">
+                            <a href="#secao-grade-projetos" class="botao-fluido-padrao" data-mouse-magnetico>
+                                <svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                                Iniciar Projeto
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="secao-manifesto">
+                
+                <div class="fundo-tecnologico">
+                    <div class="grade-perspectiva"></div>
+                    <div class="orbe-luz orbe-esq"></div>
+                    <div class="orbe-luz orbe-dir"></div>
+                </div>
+                
+                <div class="grade-layout-manifesto">
+                    <div class="coluna-imagem-manifesto animacao-revelar-manifesto">
+                        <div class="moldura-foto-manifesto">
+                            <div class="circulo-holografico"></div>
+                            <img src="https://i.ibb.co/KxqTTmFt/Gemini-Generated-Image-31bs1k31bs1k31bs.png" alt="Caíque Alonso Manifesto">
+                        </div>
+                    </div>
+                    
+                    <div class="coluna-texto-manifesto animacao-revelar-manifesto">
+                        <div class="etiqueta-codigo">&lt; /&gt;Sobre_Mim</div>
+                        <h2 class="texto-revelacao-scroll">
+                            Desenvolvedor focado em <span class="palavra-destaque-neon">inovação visual</span>. Sou Caíque Alonso. Minha missão é ir além do código básico. Busco a intersecção perfeita entre <span class="palavra-destaque-neon">conversão e design</span>. Transformo ideias em interfaces vivas.
+                        </h2>
+                        
+                        <div class="bloco-acao-central" style="margin-top: 40px;">
+                            <a href="#" class="botao-fluido-padrao elemento-com-interacao" data-mouse-magnetico>
+                                <svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                                Faça seu orçamento
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="secao-grade-projetos">
+                
+                <div class="fundo-tecnologico">
+                    <div class="grade-perspectiva"></div>
+                    <div class="orbe-luz orbe-esq" style="background: var(--detalhes-claros); right: -10%; left: auto; top: 20%;"></div>
+                    <div class="orbe-luz orbe-dir" style="background: var(--destaque-principal); left: -5%; bottom: 5%;"></div>
+                </div>
+
+                <div class="layout-grade-cartoes">
+                    
+                    <div class="cartao-tridimensional elemento-com-interacao animacao-entrada-cartao" data-efeito-inclinacao>
+                        <div class="camada-vidro-cartao"></div>
+                        <div class="imagem-fundo-cartao fundo-projeto-1"></div>
+                        <div class="feixe-leitura-laser"></div>
+                        <div class="mira-camera-canto mira-esq-sup"></div><div class="mira-camera-canto mira-dir-sup"></div>
+                        <div class="mira-camera-canto mira-esq-inf"></div><div class="mira-camera-canto mira-dir-inf"></div>
+                        
+                        <div class="conteudo-informacoes-cartao">
+                            <div class="cabecalho-cartao"><span class="numero-identificador">01</span></div>
+                            <h3 class="titulo-cartao fonte-destaque">Espaço<br>Motiva Ação</h3>
+                            <p class="texto-descritivo-cartao">Site de Psicopedagogia. Foco em clareza, confiança e captação de leads.</p>
+                            <div class="envoltorio-botao-cartao"><a href="https://espacomotivaacao.netlify.app/" target="_blank" class="botao-fluido-padrao" style="font-family: var(--fonte-corpo); font-weight: 600;">ACESSAR PROJETO</a></div>
+                        </div>
+                    </div>
+                    
+                    <div class="cartao-tridimensional elemento-com-interacao animacao-entrada-cartao" data-efeito-inclinacao>
+                        <div class="camada-vidro-cartao"></div>
+                        <div class="imagem-fundo-cartao fundo-projeto-2"></div>
+                        <div class="feixe-leitura-laser"></div>
+                        <div class="mira-camera-canto mira-esq-sup"></div><div class="mira-camera-canto mira-dir-sup"></div>
+                        <div class="mira-camera-canto mira-esq-inf"></div><div class="mira-camera-canto mira-dir-inf"></div>
+                        
+                        <div class="conteudo-informacoes-cartao">
+                            <div class="cabecalho-cartao"><span class="numero-identificador">02</span></div>
+                            <h3 class="titulo-cartao fonte-destaque">Mede<br>Marcenaria</h3>
+                            <p class="texto-descritivo-cartao">Sofisticação em madeira traduzida para pixels. Design focado em produto.</p>
+                            <div class="envoltorio-botao-cartao"><a href="https://medemarcenaria.netlify.app/" target="_blank" class="botao-fluido-padrao" style="font-family: var(--fonte-corpo); font-weight: 600;">ACESSAR PROJETO</a></div>
+                        </div>
+                    </div>
+                    
+                    <div class="cartao-tridimensional elemento-com-interacao animacao-entrada-cartao" data-efeito-inclinacao>
+                        <div class="camada-vidro-cartao"></div>
+                        <div class="imagem-fundo-cartao fundo-projeto-3"></div>
+                        <div class="feixe-leitura-laser"></div>
+                        <div class="mira-camera-canto mira-esq-sup"></div><div class="mira-camera-canto mira-dir-sup"></div>
+                        <div class="mira-camera-canto mira-esq-inf"></div><div class="mira-camera-canto mira-dir-inf"></div>
+                        
+                        <div class="conteudo-informacoes-cartao">
+                            <div class="cabecalho-cartao"><span class="numero-identificador">03</span></div>
+                            <h3 class="titulo-cartao fonte-destaque">Portfólio<br>de Fotografia</h3>
+                            <p class="texto-descritivo-cartao">Portfólio profissional de fotografia.</p>
+                            <div class="envoltorio-botao-cartao"><a href="https://emilylopesportfoliofotografia.netlify.app/" target="_blank" class="botao-fluido-padrao" style="font-family: var(--fonte-corpo); font-weight: 600;">ACESSAR PROJETO</a></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <footer>
+                <div class="nevoa-luminosa-rodape"></div>
+                <img src="https://i.ibb.co/M5MvQBtR/c1.png" alt="Marca D'água CA" class="logo-marca-dagua-gigante titulo-animado-rodape">
+                
+                <div class="conteiner-rodape">
+                    
+                    <div class="titulo-animado-rodape" style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 100px; background: rgba(74, 147, 198, 0.1); border: 1px solid rgba(74, 147, 198, 0.2); font-family: var(--fonte-codigo); font-size: 0.7rem; color: var(--detalhes-claros); letter-spacing: 1px; margin-bottom: 10px;">
+                        <div style="width: 6px; height: 6px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 10px #4ade80; animation: luz-status-piscando 1.5s infinite;"></div>
+                        DISPONÍVEL PARA PROJETOS
+                    </div>
+                    
+                    <h2 class="texto-chamada-rodape titulo-animado-rodape">INICIE SEU PRÓXIMO PROJETO</h2>
+                    
+                    <div class="caixa-botoes-redes">
+                        
+                        <a href="+55 21 97599-1870" class="botao-link-social botao-animado-rodape elemento-com-interacao">
+                            <svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                            <span>WhatsApp</span>
+                        </a>
+                        
+                        <a href="https://www.instagram.com/caiquedev_?igsh=ZGF2azJ1anB4cjc5" class="botao-link-social botao-animado-rodape elemento-com-interacao">
+                            <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                            <span>Instagram</span>
+                        </a>
+                        
+                        <a href="linkedin.com/in/caique-alonso" class="botao-link-social botao-animado-rodape elemento-com-interacao">
+                            <svg viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                            <span>LinkedIn</span>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                <div class="faixa-direitos-reservados">
+                    <span class="texto-direitos">© 2026 CAÍQUE ALONSO. TODOS OS DIREITOS RESERVADOS.</span>
+                </div>
+            </footer>
+
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
