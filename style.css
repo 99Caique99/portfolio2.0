@@ -1,4 +1,4 @@
-        :root {
+:root {
             --fundo-dominante: #050914;      
             --superficie: #1A2F54;          
             --destaque-principal: #4A93C6;        
@@ -73,6 +73,7 @@
             .cursor-ponto, .cursor-aura { display: none !important; } 
         }
 
+        
         .conteiner-particulas { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             pointer-events: none; z-index: 0; overflow: hidden; 
@@ -118,6 +119,7 @@
         .orbe-esq { width: 40vw; height: 40vw; background: var(--destaque-principal); top: 10%; left: -10%; }
         .orbe-dir { width: 35vw; height: 35vw; background: var(--detalhes-claros); bottom: 10%; right: -5%; animation-delay: -5s; }
 
+       
         .fonte-destaque { font-family: var(--fonte-titulos); text-transform: uppercase; font-weight: 700; }
         
         .botao-fluido-padrao { 
@@ -223,6 +225,7 @@
             .coluna-visual-inicio { width: 45%; }
         }
 
+      
         #secao-manifesto { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 10vh 5vw; position: relative; overflow: hidden; }
         .grade-layout-manifesto { display: grid; grid-template-columns: 1fr; gap: 60px; width: 100%; max-width: 1400px; margin: 0 auto; align-items: center; position: relative; z-index: 3; }
         @media (min-width: 1024px) { .grade-layout-manifesto { grid-template-columns: 1fr 1fr; gap: 80px; } }
@@ -262,13 +265,29 @@
         .etiqueta-codigo::after { content: '_'; animation: cursor-piscando 1s step-end infinite; }
         
         .texto-revelacao-scroll { 
-            font-family: var(--fonte-alternativa); font-weight: 700; font-size: clamp(1.8rem, 4vw, 3.5rem); line-height: 1.3; 
-            color: rgba(254, 255, 239, 0.15); background: linear-gradient(to right, var(--texto-claro), var(--detalhes-claros)); 
-            background-size: 0% 100%; background-repeat: no-repeat; -webkit-background-clip: text; 
-            will-change: background-size; margin-bottom: 40px; 
+            font-family: var(--fonte-alternativa); 
+            font-weight: 700; 
+            font-size: clamp(1.8rem, 4vw, 3.5rem); 
+            line-height: 1.3; 
+            margin-bottom: 40px; 
+            
+           
+            background: linear-gradient(to right, #FFFFFF 50%, rgba(255, 255, 255, 0.15) 50%); 
+            background-size: 200% 100%; 
+            background-position: 100% 0; 
+            -webkit-background-clip: text; 
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent; 
         }
-        .palavra-destaque-neon { color: var(--destaque-principal); text-shadow: 0 0 30px rgba(74, 147, 198, 0.6); }
+        
+        .palavra-destaque-neon { 
+            -webkit-text-fill-color: var(--destaque-principal);
+            color: var(--destaque-principal); 
+            text-shadow: 0 0 30px rgba(74, 147, 198, 0.8); 
+        }
 
+       
         #secao-grade-projetos { padding: 10vh 5vw; min-height: 100vh; display: flex; align-items: center; position: relative; perspective: 1500px; overflow: hidden; }
         .layout-grade-cartoes { display: grid; grid-template-columns: 1fr; gap: 30px; width: 100%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 3; }
         @media (min-width: 1024px) { .layout-grade-cartoes { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
@@ -333,6 +352,7 @@
         .texto-descritivo-cartao { font-size: clamp(0.85rem, 1vw, 0.95rem); max-width: 100%; color: rgba(254, 255, 239, 0.8); margin-bottom: 20px;}
         
         .envoltorio-botao-cartao { display: flex; justify-content: flex-start; width: 100%; margin-top: auto; padding-top: 15px; }
+
 
         footer { 
             padding: 8vh 5vw 4vh 5vw; display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -401,7 +421,7 @@
             position: relative; z-index: 2; text-align: center; 
         }
         .texto-direitos { font-family: var(--fonte-codigo); font-size: 0.75rem; color: rgba(254, 255, 239, 0.5); letter-spacing: 2px; }
-        
+       
         @media (max-width: 1024px) {
             #secao-inicio { padding: 12vh 5vw 8vh 5vw; gap: 15px; }
             .conteiner-texto-cinetico { top: 22%; gap: 15vh; opacity: 0.15; }
@@ -438,6 +458,7 @@
             .botao-link-social { width: 100%; max-width: 280px; }
         }
 
+      
         @keyframes girar-fundo-cartao { 100% { transform: rotate(360deg); } }
         @keyframes descer-laser { 0% { top: 0%; } 100% { top: 100%; } }
         @keyframes flutuar-suave { 0% { transform: translateY(0); } 100% { transform: translateY(-15px); } }

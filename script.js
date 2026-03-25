@@ -152,11 +152,12 @@
             scrollTrigger: { trigger: "#secao-manifesto", start: "top bottom", end: "bottom top", scrub: true }
         });
 
-        const textoManifesto = document.querySelector(".texto-revelado");
+        /* EFEITO DE LUZ (REVELAÇÃO BRANCA) NO TEXTO DO MANIFESTO */
+        const textoManifesto = document.querySelector(".texto-revelacao-scroll");
         if (textoManifesto) {
             gsap.to(textoManifesto, { 
-                backgroundSize: "100% 100%", ease: "none", 
-                scrollTrigger: { trigger: "#secao-manifesto", start: "top 80%", end: "center center", scrub: true } 
+                backgroundPosition: "0% 0%", ease: "none", 
+                scrollTrigger: { trigger: "#secao-manifesto", start: "top 70%", end: "center center", scrub: true } 
             });
         }
 
