@@ -289,9 +289,9 @@
         /* ==========================================================================
            7. FAIXA MARQUEE INTERATIVA (TICKER)
            ========================================================================== */
-        .container-marquee { width: 100vw; overflow: hidden; padding: 2vh 0; background: var(--cor-ciano); color: var(--fundo-abismo); display: flex; align-items: center; position: relative; z-index: 5; transform: rotate(-2deg) scale(1.05); transform-origin: center; box-shadow: 0 0 30px rgba(130, 196, 216, 0.2); }
+        .container-marquee { width: 100vw; overflow: hidden; padding: 0.1vh 0; background: var(--cor-indigo); color: var(--fundo-abismo); display: flex; align-items: center; position: relative; z-index: 5; transform: rotate(-2deg) scale(1.05); transform-origin: center; box-shadow: 0 0 30px rgba(130, 196, 216, 0.2); }
         .trilha-marquee { display: flex; width: max-content; }
-        .texto-marquee { font-family: var(--fonte-titulos); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; white-space: nowrap; padding: 0 1vw; text-transform: uppercase; }
+        .texto-marquee { font-family: var(--fonte-alternativa); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; white-space: nowrap; padding: 0 1vw; text-transform: uppercase; }
 
         /* ==========================================================================
            8. SEÇÃO 2: MANIFESTO
