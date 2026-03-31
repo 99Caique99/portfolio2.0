@@ -5,9 +5,22 @@
         gsap.ticker.add((tempo) => rolagemSuave.raf(tempo * 1000));
         gsap.ticker.lagSmoothing(0);
 
-        /* --------------------------------------------------------------------------
-           1. CURSOR LIQUID TRAIL E INTERATIVIDADE (DESKTOP)
-           -------------------------------------------------------------------------- */
+        /* ==========================================================================
+           1. MÁSCARA ROTATIVA (O SEU EFEITO ORIGINAL)
+           ========================================================================== */
+        let c = 45;
+        
+        function drawMask(){
+            document.documentElement.style.setProperty('--direction', c++ + 'deg');
+            requestAnimationFrame(drawMask);
+        }
+        requestAnimationFrame(drawMask);
+
+        /* ==========================================================================
+           2. CURSOR E HOVER CARDS (LÓGICA LIMPA)
+           ========================================================================== */
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+
         if(window.innerWidth >= 1024) {
             const cursorPrincipal = document.createElement('div');
             cursorPrincipal.className = 'cursor-principal ponto-rastro';
@@ -25,20 +38,9 @@
                 trilha.push({el: div, x: window.innerWidth/2, y: window.innerHeight/2});
             }
 
-            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX; mouseY = e.clientY;
                 gsap.to(cursorPrincipal, { x: mouseX, y: mouseY, duration: 0 });
-                
-                // Movimento do Fundo Interativo
-                const orbesFundo = document.querySelector('.orbes-luminosos-fundo');
-                if (orbesFundo) {
-                    const xPercent = (mouseX / window.innerWidth) * 100;
-                    const yPercent = (mouseY / window.innerHeight) * 100;
-                    orbesFundo.style.setProperty('--bg-x', `${xPercent}%`);
-                    orbesFundo.style.setProperty('--bg-y', `${yPercent}%`);
-                }
             });
 
             gsap.ticker.add(() => {
@@ -54,7 +56,7 @@
             });
 
             document.addEventListener('mouseover', (e) => {
-                if (e.target.closest('.elemento-com-interacao') || e.target.closest('a') || e.target.closest('button')) {
+                if (e.target.closest('.elemento-com-interacao') || e.target.closest('a') || e.target.closest('button') || e.target.closest('.titulo-principal span')) {
                     cursorPrincipal.classList.add('hover-ativo');
                     trilha.forEach(p => p.el.style.display = 'none');
                 } else {
@@ -70,31 +72,22 @@
                     const y = e.clientY - rect.top;
                     const xp = (x / rect.width) * 100;
                     const yp = (y / rect.height) * 100;
+                    
                     cartao.style.setProperty('--mouse-x', `${x}px`);
                     cartao.style.setProperty('--mouse-y', `${y}px`);
                     cartao.style.setProperty('--mouse-xp', `${xp}%`);
                     cartao.style.setProperty('--mouse-yp', `${yp}%`);
                     
-                    const rotX = ((y - (rect.height / 2)) / (rect.height / 2)) * -10; 
-                    const rotY = ((x - (rect.width / 2)) / (rect.width / 2)) * 10;
+                    const rotX = ((y - (rect.height / 2)) / (rect.height / 2)) * -8; 
+                    const rotY = ((x - (rect.width / 2)) / (rect.width / 2)) * 8;
                     
-                    gsap.to(cartao, {
-                        "--rot-x": `${rotX}deg`,
-                        "--rot-y": `${rotY}deg`,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
+                    gsap.to(cartao, { "--rot-x": `${rotX}deg`, "--rot-y": `${rotY}deg`, duration: 0.3, ease: "power2.out" });
                 });
                 
                 cartao.addEventListener('mouseenter', () => cartao.style.setProperty('--hover-opacity', `1`));
                 cartao.addEventListener('mouseleave', () => {
                     cartao.style.setProperty('--hover-opacity', `0`);
-                    gsap.to(cartao, {
-                        "--rot-x": `0deg`,
-                        "--rot-y": `0deg`,
-                        duration: 0.8,
-                        ease: "elastic.out(1, 0.3)"
-                    });
+                    gsap.to(cartao, { "--rot-x": `0deg`, "--rot-y": `0deg`, duration: 0.8, ease: "elastic.out(1, 0.3)" });
                 });
             });
             
@@ -108,44 +101,20 @@
         }
 
         /* --------------------------------------------------------------------------
-           2. ANIMAÇÕES GSAP PREMIUM E ENTRADAS EM ZIGUEZAGUE
+           3. ANIMAÇÕES DE ENTRADA SIMPLES E ESTÁVEIS (GSAP)
            -------------------------------------------------------------------------- */
         let animacoesMidia = gsap.matchMedia();
 
         animacoesMidia.add("(min-width: 1025px)", () => {
-            // Hero: Texto da esquerda, Imagem da direita
-            gsap.fromTo(".animacao-entrada-textos", 
-                { x: -100, opacity: 0, filter: "blur(10px)" }, 
-                { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", clearProps: "all" }
-            );
-            gsap.fromTo(".animacao-entrada-imagem", 
-                { x: 100, opacity: 0, filter: "blur(10px)" }, 
-                { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", delay: 0.2, clearProps: "all" }
-            );
+            gsap.fromTo(".animacao-entrada-textos", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: "power4.out", clearProps: "all" });
+            gsap.fromTo(".animacao-entrada-imagem", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: "power4.out", delay: 0.2, clearProps: "all" });
             
-            // Manifesto: Texto e Imagem em Ziguezague
-            gsap.fromTo(".animacao-revelar-manifesto", 
-                { x: -100, opacity: 0, filter: "blur(10px)" }, 
-                { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 75%" } }
-            );
-            gsap.fromTo(".animacao-revelar-manifesto-dir", 
-                { x: 100, opacity: 0, filter: "blur(10px)" }, 
-                { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", delay: 0.2, clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 75%" } }
-            );
+            gsap.fromTo(".animacao-revelar-manifesto", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 75%" } });
+            gsap.fromTo(".animacao-revelar-manifesto-dir", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: "power4.out", delay: 0.2, clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 75%" } });
             
-            // Portfólio Cartões (Ziguezague: Esquerda, Direita, Esquerda)
-            gsap.utils.toArray(".animacao-entrada-cartao").forEach((cartao, indice) => {
-                let direcaoX = indice % 2 === 0 ? -120 : 120; // 0 = esq, 1 = dir, 2 = esq
-                gsap.fromTo(cartao, 
-                    { x: direcaoX, y: 50, opacity: 0, rotationY: direcaoX > 0 ? 15 : -15, filter: "blur(10px)" }, 
-                    { x: 0, y: 0, opacity: 1, rotationY: 0, filter: "blur(0px)", duration: 1.5, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: cartao, start: "top 80%" } }
-                );
-            });
+            gsap.fromTo(".animacao-entrada-cartao", { y: 100, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 1.5, stagger: 0.15, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: ".layout-grade-cartoes", start: "top 80%" } });
             
-            gsap.fromTo(".titulo-animado-rodape, .botao-animado-rodape", 
-                { y: 80, opacity: 0 }, 
-                { scrollTrigger: { trigger: "footer", start: "top 90%" }, y: 0, opacity: 1, duration: 1.2, ease: "expo.out", stagger: 0.1, clearProps: "all" }
-            );
+            gsap.fromTo(".titulo-animado-rodape, .botao-animado-rodape", { y: 80, opacity: 0 }, { scrollTrigger: { trigger: "footer", start: "top 90%" }, y: 0, opacity: 1, duration: 1.2, ease: "expo.out", stagger: 0.1, clearProps: "all" });
 
             let proxy = { skew: 0 }, skewSetter = gsap.quickSetter(".elemento-skew", "skewY", "deg"), clamp = gsap.utils.clamp(-5, 5);
             ScrollTrigger.create({
@@ -160,23 +129,41 @@
         });
 
         animacoesMidia.add("(max-width: 1024px)", () => {
-            // Hero Mobile: Esquerda e Direita
-            gsap.fromTo(".animacao-entrada-textos", { x: -80, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", clearProps: "all" });
-            gsap.fromTo(".animacao-entrada-imagem", { x: 80, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", delay: 0.2, clearProps: "all" });
+            // Efeito alternado ESQUERDA/DIREITA ao rolar para hero
+            gsap.fromTo(".animacao-entrada-textos", 
+                { x: -80, opacity: 0, rotateY: 10 }, 
+                { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: "#secao-inicio", start: "top 80%" } }
+            );
+            gsap.fromTo(".animacao-entrada-imagem", 
+                { x: 80, opacity: 0, rotateY: -10 }, 
+                { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", delay: 0.1, clearProps: "all", scrollTrigger: { trigger: "#secao-inicio", start: "top 80%" } }
+            );
             
-            gsap.fromTo(".animacao-revelar-manifesto", { x: -80, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 80%" } });
-            gsap.fromTo(".animacao-revelar-manifesto-dir", { x: 80, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power4.out", delay: 0.2, clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 80%" } });
+            // Efeito alternado ESQUERDA/DIREITA ao rolar para manifesto
+            gsap.fromTo(".animacao-revelar-manifesto", 
+                { x: -80, opacity: 0, rotateY: 10 }, 
+                { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 85%" } }
+            );
+            gsap.fromTo(".animacao-revelar-manifesto-dir", 
+                { x: 80, opacity: 0, rotateY: -10 }, 
+                { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", delay: 0.1, clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 85%" } }
+            );
 
-            // Cartões Mobile em Ziguezague: Esquerda, Direita, Esquerda
-            gsap.utils.toArray(".animacao-entrada-cartao").forEach((cartao, indice) => {
-                let direcaoX = indice % 2 === 0 ? -100 : 100;
-                gsap.fromTo(cartao, 
-                    { x: direcaoX, opacity: 0, filter: "blur(10px)", rotationY: direcaoX > 0 ? 10 : -10 }, 
-                    { x: 0, opacity: 1, filter: "blur(0px)", rotationY: 0, duration: 1.2, ease: "power3.out", clearProps: "transform,opacity,filter", scrollTrigger: { trigger: cartao, start: "top 85%" } }
-                );
-            });
+            // Efeito alternado ESQUERDA/DIREITA para cards ao rolar
+            gsap.fromTo(".animacao-entrada-cartao:nth-child(1)", 
+                { x: -80, opacity: 0, rotateY: 10, scale: 0.95 }, 
+                { x: 0, opacity: 1, rotateY: 0, scale: 1, duration: 1.2, ease: "power3.out", clearProps: "all", scrollTrigger: { trigger: ".layout-grade-cartoes", start: "top 85%" } }
+            );
+            gsap.fromTo(".animacao-entrada-cartao:nth-child(2)", 
+                { x: 80, opacity: 0, rotateY: -10, scale: 0.95 }, 
+                { x: 0, opacity: 1, rotateY: 0, scale: 1, duration: 1.2, delay: 0.15, ease: "power3.out", clearProps: "all", scrollTrigger: { trigger: ".layout-grade-cartoes", start: "top 85%" } }
+            );
+            gsap.fromTo(".animacao-entrada-cartao:nth-child(3)", 
+                { x: -80, opacity: 0, rotateY: 10, scale: 0.95 }, 
+                { x: 0, opacity: 1, rotateY: 0, scale: 1, duration: 1.2, delay: 0.3, ease: "power3.out", clearProps: "all", scrollTrigger: { trigger: ".layout-grade-cartoes", start: "top 85%" } }
+            );
 
-            gsap.fromTo(".titulo-animado-rodape, .botao-animado-rodape", { y: 50, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.2, ease: "power4.out", stagger: 0.1, clearProps: "all", scrollTrigger: { trigger: "footer", start: "top 95%" } });
+            gsap.fromTo(".titulo-animado-rodape, .botao-animado-rodape", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power4.out", stagger: 0.1, clearProps: "all", scrollTrigger: { trigger: "footer", start: "top 95%" } });
         });
 
         let direcaoAnimacao = 1;
@@ -205,91 +192,3 @@
             gsap.to(textoManifesto, { backgroundPosition: "0% 0%", ease: "none", scrollTrigger: { trigger: "#secao-manifesto", start: "top 70%", end: "center center", scrub: true } });
         }
 
-        /* --------------------------------------------------------------------------
-           3. WEBGL/CANVAS: REDE NEURAL REATIVA
-           -------------------------------------------------------------------------- */
-        const elementoCanvas = document.getElementById('canvas-rede-neural');
-        const contextoCanvas = elementoCanvas.getContext('2d');
-        let larguraJanela, alturaJanela;
-        
-        let particulasCanvas = [];
-        const maxParticulas = window.innerWidth > 768 ? 80 : 40;
-        const distanciaConexao = 150;
-        
-        let mouseXCanvas = -1000, mouseYCanvas = -1000;
-
-        function redimensionarCanvas() { 
-            larguraJanela = elementoCanvas.width = window.innerWidth; 
-            alturaJanela = elementoCanvas.height = window.innerHeight; 
-        }
-        window.addEventListener('resize', redimensionarCanvas); 
-        redimensionarCanvas();
-
-        document.addEventListener('mousemove', (e) => {
-            mouseXCanvas = e.clientX; mouseYCanvas = e.clientY;
-        });
-
-        class ParticulaNeural {
-            constructor() {
-                this.x = Math.random() * larguraJanela;
-                this.y = Math.random() * alturaJanela;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.tamanho = Math.random() * 1.5 + 0.5;
-            }
-            atualizar() {
-                this.x += this.vx; this.y += this.vy;
-                let dx = mouseXCanvas - this.x, dy = mouseYCanvas - this.y;
-                let distanciaParaMouse = Math.sqrt(dx * dx + dy * dy);
-                if (distanciaParaMouse < 150) { this.x -= dx * 0.015; this.y -= dy * 0.015; }
-                if (this.x < 0) this.x = larguraJanela;
-                if (this.x > larguraJanela) this.x = 0;
-                if (this.y < 0) this.y = alturaJanela;
-                if (this.y > alturaJanela) this.y = 0;
-            }
-            desenhar() {
-                contextoCanvas.beginPath();
-                contextoCanvas.arc(this.x, this.y, this.tamanho, 0, Math.PI * 2);
-                contextoCanvas.fillStyle = 'rgba(0, 240, 255, 0.5)';
-                contextoCanvas.fill();
-            }
-        }
-
-        function iniciarParticulas() {
-            particulasCanvas = [];
-            for (let i = 0; i < maxParticulas; i++) particulasCanvas.push(new ParticulaNeural());
-        }
-
-        function animarRedeNeural() {
-            contextoCanvas.clearRect(0, 0, larguraJanela, alturaJanela);
-            for (let i = 0; i < particulasCanvas.length; i++) {
-                particulasCanvas[i].atualizar(); particulasCanvas[i].desenhar();
-                for (let j = i; j < particulasCanvas.length; j++) {
-                    let dx = particulasCanvas[i].x - particulasCanvas[j].x;
-                    let dy = particulasCanvas[i].y - particulasCanvas[j].y;
-                    let distancia = Math.sqrt(dx * dx + dy * dy);
-                    if (distancia < distanciaConexao) {
-                        contextoCanvas.beginPath();
-                        contextoCanvas.strokeStyle = `rgba(0, 240, 255, ${0.15 - distancia / distanciaConexao * 0.15})`;
-                        contextoCanvas.lineWidth = 1;
-                        contextoCanvas.moveTo(particulasCanvas[i].x, particulasCanvas[i].y);
-                        contextoCanvas.lineTo(particulasCanvas[j].x, particulasCanvas[j].y);
-                        contextoCanvas.stroke();
-                    }
-                }
-                let dxMouse = particulasCanvas[i].x - mouseXCanvas;
-                let dyMouse = particulasCanvas[i].y - mouseYCanvas;
-                let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-                if (distMouse < 200) {
-                    contextoCanvas.beginPath();
-                    contextoCanvas.strokeStyle = `rgba(112, 0, 255, ${0.3 - distMouse / 200 * 0.3})`;
-                    contextoCanvas.lineWidth = 1.5;
-                    contextoCanvas.moveTo(particulasCanvas[i].x, particulasCanvas[i].y);
-                    contextoCanvas.lineTo(mouseXCanvas, mouseYCanvas);
-                    contextoCanvas.stroke();
-                }
-            }
-            requestAnimationFrame(animarRedeNeural);
-        }
-
-        iniciarParticulas(); animarRedeNeural();

@@ -1,8 +1,10 @@
         :root {
             --fundo-abismo: #010205;      
             --fundo-elevado: #060b19;          
-            --neon-ciano: #00f0ff;        
-            --neon-roxo: #7000ff;          
+            --cor-ciano: #7AC1E6; /* Azul claro */        
+            --cor-indigo: #346A8D; /* Azul médio */
+            --cor-roxo: #254E7A; /* Azul escuro */
+            --cor-verde: #4A93C6; /* Azul forte */
             --texto-puro: #ffffff;       
             --texto-mutado: rgba(255, 255, 255, 0.6);
             
@@ -22,46 +24,156 @@
         
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
-        #envoltorio-rolagem-suave { overflow: hidden; width: 100%; max-width: 100vw; }
+        #envoltorio-rolagem-suave { overflow: hidden; width: 100%; max-width: 100vw; position: relative; z-index: 1; }
 
         /* ==========================================================================
-           2. CURSOR DE RASTRO FLUIDO (LIQUID TRAIL)
+           2. CURSOR PREMIUM COM EFEITO FLUIDO INOVADOR
            ========================================================================== */
-        .ponto-rastro {
-            position: fixed; top: 0; left: 0; border-radius: 50%;
-            background: var(--neon-ciano); pointer-events: none; z-index: 99999;
-            transform: translate(-50%, -50%); will-change: transform;
-        }
         .cursor-principal {
-            width: 8px; height: 8px; background: var(--texto-puro); box-shadow: 0 0 10px var(--texto-puro);
-            z-index: 100000; transition: width 0.2s, height 0.2s;
+            position: fixed; top: 0; left: 0; width: 10px; height: 10px;
+            background: radial-gradient(circle, var(--cor-ciano) 0%, var(--cor-verde) 100%);
+            border-radius: 50%;
+            pointer-events: none; z-index: 99999;
+            transform: translate(-50%, -50%);
+            box-shadow: 
+                0 0 12px rgba(122, 193, 230, 0.7),
+                0 0 25px rgba(74, 147, 198, 0.5),
+                inset 0 0 5px rgba(255,255,255,0.9);
+            transition: width 0.2s, height 0.2s, background 0.3s;
+            filter: drop-shadow(0 0 3px rgba(122, 193, 230, 0.9));
         }
-        .cursor-principal.hover-ativo { width: 40px; height: 40px; background: transparent; border: 1px solid var(--neon-ciano); mix-blend-mode: difference; }
         
-        @media (max-width: 1024px) { * { cursor: auto !important; } .ponto-rastro { display: none !important; } }
+        .ponto-rastro {
+            position: fixed; width: 8px; height: 8px;
+            background: radial-gradient(circle, var(--cor-ciano) 0%, var(--cor-verde) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 8px rgba(122, 193, 230, 0.5), 0 0 15px rgba(74, 147, 198, 0.3);
+            filter: blur(0.5px);
+        }
+        
+        .cursor-principal.hover-ativo {
+            width: 6px;
+            height: 6px;
+            box-shadow: 
+                0 0 15px rgba(74, 147, 198, 0.8),
+                0 0 30px rgba(122, 193, 230, 0.5),
+                inset 0 0 8px rgba(255,255,255,1);
+        }
+        
+        .cursor-ponto {
+            position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+            background: radial-gradient(circle, var(--cor-ciano) 0%, var(--cor-verde) 100%);
+            border-radius: 50%;
+            pointer-events: none; z-index: 99999;
+            transform: translate(-50%, -50%);
+            box-shadow: 
+                0 0 10px rgba(122, 193, 230, 0.6),
+                0 0 20px rgba(74, 147, 198, 0.4),
+                inset 0 0 5px rgba(255,255,255,0.8);
+            transition: width 0.15s, height 0.15s, background 0.3s;
+            filter: drop-shadow(0 0 2px rgba(122, 193, 230, 0.8));
+        }
+        
+        .cursor-aura {
+            position: fixed; top: 0; left: 0; width: 50px; height: 50px;
+            border: 2px solid rgba(74, 147, 198, 0.4);
+            border-radius: 50%;
+            pointer-events: none; z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s ease-out, height 0.2s ease-out, border-color 0.3s;
+            animation: pulso-cursor 2s ease-in-out infinite;
+        }
+        
+        .cursor-aura::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid rgba(122, 193, 230, 0.2);
+            animation: girar-cursor 8s linear infinite;
+        }
+        
+        .cursor-aura::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            border: 1px dashed rgba(74, 147, 198, 0.3);
+            animation: girar-cursor-inverso 6s linear infinite;
+        }
+        
+        @keyframes pulso-cursor {
+            0%, 100% { box-shadow: 0 0 10px rgba(122, 193, 230, 0.3), 0 0 20px rgba(74, 147, 198, 0.2); }
+            50% { box-shadow: 0 0 15px rgba(122, 193, 230, 0.6), 0 0 30px rgba(74, 147, 198, 0.4); }
+        }
+        
+        @keyframes girar-cursor {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes girar-cursor-inverso {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        .cursor-ponto.hover-ativo { 
+            width: 4px; 
+            height: 4px; 
+            opacity: 0.5;
+            background: radial-gradient(circle, var(--cor-verde) 0%, var(--cor-ciano) 100%);
+        }
+        
+        .cursor-aura.hover-ativo {
+            width: 80px; 
+            height: 80px;
+            border-color: var(--cor-verde);
+            border-width: 3px;
+            box-shadow: 
+                0 0 20px rgba(74, 147, 198, 0.6),
+                0 0 40px rgba(122, 193, 230, 0.3),
+                inset 0 0 15px rgba(74, 147, 198, 0.1);
+        }
+
+        @media (max-width: 1024px) { * { cursor: auto !important; } .cursor-ponto, .cursor-aura, .cursor-principal, .ponto-rastro { display: none !important; } }
 
         /* ==========================================================================
-           3. NOVO BACKGROUND GRADIENTE INTERATIVO E REDE NEURAL
+           3. BACKGROUND PREMIUM: EFEITO DE MÁSCARA ROTATIVA (PRIMEIRA DOBRA)
            ========================================================================== */
-        .fundo-gradiente-animado {
-            position: fixed; inset: 0; z-index: -4;
-            background: linear-gradient(-45deg, #010205, #080f26, #050a1a, #0a001a);
-            background-size: 400% 400%;
-            animation: pulse-gradiente 15s ease infinite alternate;
+        #hero-bg-effect {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+            opacity: 0.85; /* Ajustado para o código ficar bem visível */
         }
-        @keyframes pulse-gradiente { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-
-        .orbes-luminosos-fundo {
-            position: fixed; inset: -50%; z-index: -3; pointer-events: none;
-            background: 
-                radial-gradient(circle at var(--bg-x, 30%) var(--bg-y, 40%), rgba(0, 240, 255, 0.12), transparent 45%),
-                radial-gradient(circle at calc(100% - var(--bg-x, 70%)) calc(100% - var(--bg-y, 60%)), rgba(112, 0, 255, 0.1), transparent 45%);
-            transition: background 0.3s ease-out;
-        }
-
-        #canvas-rede-neural { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; pointer-events: none; opacity: 0.3; mix-blend-mode: screen; }
         
-        .ruido-filme { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; opacity: 0.04; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+        .hero-camada-bg {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            /* A sua nova foto Tech no fundo */
+            background-image: url('https://i.ibb.co/sp9fRc06/fototech.png');
+            filter: brightness(0.4) grayscale(0.2); 
+        }
+        
+        .hero-camada-fg {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            /* A imagem luminosa que varre o código com o efeito da máscara */
+            background-image: url('https://images.pexels.com/photos/6424587/pexels-photo-6424587.jpeg?auto=compress&cs=tinysrgb&w=2000'); 
+            filter: brightness(0.5);
+            -webkit-mask-image: linear-gradient(var(--direction, -45deg), rgba(0,0,0,1) 40%, rgba(0,0,0,0) 60%);
+            mask-image: linear-gradient(var(--direction, -45deg), rgba(0,0,0,1) 40%, rgba(0,0,0,0) 60%);
+            -webkit-mask-position: 50% 50%;
+            mask-position: 50% 50%;
+        }
+
+        /* Degradê para transição suave com a cor de fundo do site */
+        .hero-bg-overlay {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(3, 5, 10, 0.2) 0%, var(--fundo-abismo) 100%);
+            z-index: 1;
+        }
 
         /* ==========================================================================
            4. CLASSE DE VELOCIDADE (SKEW ON SCROLL)
@@ -69,7 +181,7 @@
         .elemento-skew { will-change: transform; transform-origin: center center; }
 
         /* ==========================================================================
-           5. BOTÃO PREMIUM COM ROLAGEM DE TEXTO
+           5. BOTÃO PREMIUM
            ========================================================================== */
         .botao-premium { 
             position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 15px; 
@@ -84,22 +196,21 @@
         
         .botao-premium::before { 
             content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 100px;
-            background: linear-gradient(90deg, var(--neon-ciano), var(--neon-roxo));
-            opacity: 0; transition: opacity 0.4s ease;
+            background: linear-gradient(90deg, var(--cor-ciano), var(--cor-indigo)); opacity: 0; transition: opacity 0.4s ease;
         }
 
         .texto-rolagem { position: relative; overflow: hidden; height: 1.2em; display: inline-flex; align-items: center; }
         .texto-rolagem span { display: inline-block; position: relative; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .texto-rolagem span::after { content: attr(data-texto); position: absolute; left: 0; top: 110%; color: var(--fundo-abismo); }
 
-        .botao-premium:hover { translate: 0px -5px; border-color: transparent; box-shadow: 0 15px 40px rgba(0, 240, 255, 0.3); }
+        .botao-premium:hover { translate: 0px -5px; border-color: transparent; box-shadow: 0 15px 40px rgba(130, 196, 216, 0.3); }
         .botao-premium:hover::before { opacity: 1; }
         .botao-premium:hover .texto-rolagem span { transform: translateY(-110%); }
         .botao-premium svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.4s, fill 0.4s; z-index: 2; position: relative; }
         .botao-premium:hover svg { transform: translateX(5px); fill: var(--fundo-abismo); }
 
         /* ==========================================================================
-           6. SEÇÃO 1: INÍCIO (HERO)
+           6. SEÇÃO 1: INÍCIO (HERO INTACTO)
            ========================================================================== */
         #secao-inicio { min-height: 100vh; height: auto; width: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15vh 5vw 10vh 5vw; gap: 30px; overflow: hidden; }
         
@@ -107,31 +218,66 @@
         .coluna-textos-inicio { position: relative; z-index: 3; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
         
         .etiqueta-status-inicio { display: inline-flex; align-items: center; gap: 10px; padding: 6px 18px; border-radius: 100px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); font-family: var(--fonte-codigo); font-size: 0.75rem; color: var(--texto-mutado); letter-spacing: 1px; backdrop-filter: blur(10px); }
-        .ponto-verde { width: 6px; height: 6px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; animation: piscar-verde 2s infinite; }
+        .ponto-verde { width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; animation: piscar-verde 2s infinite; }
         @keyframes piscar-verde { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-        .titulo-principal { font-family: var(--fonte-alternativa); font-weight: 700; font-size: clamp(3.5rem, 6.5vw, 6.5rem); line-height: 1.05; letter-spacing: -1px; }
-        .titulo-gradiente-animado { background: linear-gradient(90deg, #ffffff 0%, var(--neon-ciano) 50%, var(--neon-roxo) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: brilho-texto-continuo 8s linear infinite alternate; display: inline-block; filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)); }
+        .titulo-principal { 
+            font-family: var(--fonte-alternativa); 
+            font-weight: 700; 
+            font-size: clamp(3.5rem, 6.5vw, 6.5rem); 
+            line-height: 1.05; 
+            letter-spacing: -1px; 
+            text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+        .titulo-gradiente-animado { background: linear-gradient(90deg, #ffffff 0%, var(--cor-ciano) 50%, var(--cor-indigo) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: brilho-texto-continuo 8s linear infinite alternate; display: inline-block; }
         @keyframes brilho-texto-continuo { to { background-position: 200% center; } }
+        
+        .c-indigo { 
+            color: var(--cor-roxo); 
+            text-shadow: 0 0 20px rgba(37, 78, 122, 0.5);
+            animation: glow-indigo 3s ease-in-out infinite;
+        }
+        .c-ciano { 
+            color: var(--cor-verde); 
+            text-shadow: 0 0 20px rgba(74, 147, 198, 0.5);
+            animation: glow-ciano 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow-indigo {
+            0%, 100% { text-shadow: 0 0 20px rgba(37, 78, 122, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(37, 78, 122, 0.8); }
+        }
+        
+        @keyframes glow-ciano {
+            0%, 100% { text-shadow: 0 0 20px rgba(74, 147, 198, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(74, 147, 198, 0.8); }
+        }
         
         .paragrafo-inicio { font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--texto-mutado); margin: 0; max-width: 90%; font-weight: 300; line-height: 1.6; }
         
         .coluna-visual-inicio { position: relative; z-index: 2; width: 100%; max-width: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; }
         .moldura-imagem-fluida { position: relative; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
         
-        .bolha-fundo { 
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 80%; 
-            background: linear-gradient(135deg, rgba(6, 11, 25, 0.8), rgba(0, 240, 255, 0.1)); 
-            border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px);
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
-            animation: transformar-bolha 10s ease-in-out infinite; 
-            box-shadow: inset 0 0 40px rgba(0, 240, 255, 0.05), 0 20px 40px rgba(0,0,0,0.5); z-index: 1; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+        /* NOVO EFEITO DA FOTO: BACKLIGHT PREMIUM (Minimalista e Elegante) */
+        .foto-glow-premium {
+            position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);
+            width: 80%; height: 60%;
+            background: radial-gradient(circle, var(--cor-ciano) 0%, var(--cor-indigo) 60%, transparent 80%);
+            filter: blur(55px); /* Desfoque intenso para criar aura de luz */
+            z-index: 1;
+            opacity: 0.5;
+            animation: respirar-glow 4s ease-in-out infinite alternate;
+            pointer-events: none;
         }
-        @keyframes transformar-bolha { 0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } 34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; } 67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; } 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } }
+        
+        @keyframes respirar-glow { 
+            0% { transform: translateX(-50%) scale(0.9); opacity: 0.3; } 
+            100% { transform: translateX(-50%) scale(1.1); opacity: 0.6; } 
+        }
         
         .foto-perfil-inicio { 
             width: 100%; height: auto; max-height: 75vh; object-fit: contain; position: relative; z-index: 2; 
-            filter: drop-shadow(0 -10px 30px rgba(0, 240, 255, 0.15)); pointer-events: none; 
+            filter: drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.5)); pointer-events: none; 
             animation: flutuar-suave 6s ease-in-out infinite alternate; 
             -webkit-mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.8) 75%, transparent 98%);
             mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.8) 75%, transparent 98%);
@@ -143,52 +289,54 @@
         /* ==========================================================================
            7. FAIXA MARQUEE INTERATIVA (TICKER)
            ========================================================================== */
-        .container-marquee { width: 100vw; overflow: hidden; padding: 2vh 0; background: var(--neon-ciano); color: var(--fundo-abismo); display: flex; align-items: center; position: relative; z-index: 5; transform: rotate(-2deg) scale(1.05); transform-origin: center; box-shadow: 0 0 30px rgba(0, 240, 255, 0.2); }
+        .container-marquee { width: 100vw; overflow: hidden; padding: 2vh 0; background: var(--cor-ciano); color: var(--fundo-abismo); display: flex; align-items: center; position: relative; z-index: 5; transform: rotate(-2deg) scale(1.05); transform-origin: center; box-shadow: 0 0 30px rgba(130, 196, 216, 0.2); }
         .trilha-marquee { display: flex; width: max-content; }
         .texto-marquee { font-family: var(--fonte-titulos); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; white-space: nowrap; padding: 0 1vw; text-transform: uppercase; }
 
         /* ==========================================================================
            8. SEÇÃO 2: MANIFESTO
            ========================================================================== */
-        #secao-manifesto { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15vh 5vw; position: relative; overflow: hidden; }
+        #secao-manifesto { min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 0vh 5vw; position: relative; overflow: hidden; }
         .grade-layout-manifesto { display: grid; grid-template-columns: 1fr; gap: 60px; width: 100%; max-width: 1400px; margin: 0 auto; align-items: center; position: relative; z-index: 3; }
         @media (min-width: 1024px) { .grade-layout-manifesto { grid-template-columns: 1fr 1fr; gap: 80px; } }
         
-        .coluna-imagem-manifesto { width: 100%; display: flex; justify-content: center; align-items: center; order: 1; }
+        .coluna-imagem-manifesto { width: 100%; display: flex; justify-content: center; align-items: center; order: 1; margin-top: -80px; }
         .moldura-foto-manifesto { position: relative; width: 100%; max-width: 550px; display: flex; justify-content: center; align-items: center; }
         
         .anel-neon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.05); animation: girar-circulo 30s linear infinite; z-index: 0; }
-        .anel-neon::after { content: ''; position: absolute; inset: -20px; border-radius: 50%; border: 1px dashed rgba(0, 240, 255, 0.2); animation: girar-circulo-inverso 20s linear infinite; }
+        .anel-neon::after { content: ''; position: absolute; inset: -20px; border-radius: 50%; border: 1px dashed rgba(130, 196, 216, 0.2); animation: girar-circulo-inverso 20s linear infinite; }
         @keyframes girar-circulo { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
         @keyframes girar-circulo-inverso { 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
         
-        .moldura-foto-manifesto img { width: 100%; height: auto; position: relative; z-index: 2; object-fit: contain; filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.8)); animation: flutuar-suave 8s ease-in-out infinite alternate; -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 98%); mask-image: linear-gradient(to bottom, black 60%, transparent 98%); }
+        /* CORREÇÃO: Removido o blur da foto, mantendo apenas o desvanecimento (fade) na base para evitar corte seco */
+        .imagem-manifesto-fade { 
+            width: 100%; height: auto; position: relative; z-index: 2; object-fit: contain; 
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.8)); /* Sem blur, foto nítida! */
+            animation: flutuar-suave 8s ease-in-out infinite alternate; 
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%); 
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%); 
+        }
         
         .coluna-texto-manifesto { order: 2; }
         .etiqueta-codigo { font-size: clamp(0.75rem, 2vw, 0.9rem); color: var(--texto-mutado); font-family: var(--fonte-codigo); background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 16px; border-radius: 100px; display: inline-block; margin-bottom: 30px; letter-spacing: 1px; backdrop-filter: blur(10px); }
-        .etiqueta-codigo span { color: var(--neon-ciano); }
+        .etiqueta-codigo span { color: var(--cor-ciano); }
         
         .texto-revelacao-scroll { font-family: var(--fonte-alternativa); font-weight: 700; font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: 1.3; margin-bottom: 40px; background: linear-gradient(to right, #ffffff 50%, rgba(255, 255, 255, 0.1) 50%); background-size: 200% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; letter-spacing: -1px; }
-        .palavra-destaque-neon { -webkit-text-fill-color: var(--neon-ciano); color: var(--neon-ciano); text-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+        .palavra-destaque-neon { -webkit-text-fill-color: var(--cor-ciano); color: var(--cor-ciano); text-shadow: 0 0 20px rgba(130, 196, 216, 0.4); }
 
         /* ==========================================================================
-           9. SEÇÃO 3: PORTFÓLIO (CARTÕES ALINHADOS - ENTRADA ZIGUEZAGUE)
+           9. SEÇÃO 3: PORTFÓLIO (INTOCÁVEL - FORMATO ORIGINAL)
            ========================================================================== */
         #secao-grade-projetos { padding: 15vh 5vw; min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
         
-        .layout-grade-cartoes { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 30px; width: 100%; max-width: 1400px; margin: 0 auto; 
-            position: relative; z-index: 3; perspective: 2000px; 
-        }
+        .layout-grade-cartoes { display: grid; grid-template-columns: 1fr; gap: 40px; width: 100%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 3; perspective: 2000px; }
+        @media (min-width: 1024px) { .layout-grade-cartoes { grid-template-columns: repeat(3, 1fr); align-items: stretch; gap: 40px; } }
         
         .cartao-premium { 
             width: 100%; min-height: 550px; height: auto; border-radius: 24px; position: relative; overflow: hidden; 
             display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(30px, 3vw, 40px); 
-            background: rgba(10, 15, 30, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); 
+            background: rgba(10, 15, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); 
             transform-style: preserve-3d; cursor: pointer; box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
-            
             translate: 0px 0px; scale: 1;
             --rot-x: 0deg; --rot-y: 0deg;
             transform: rotateX(var(--rot-x)) rotateY(var(--rot-y));
@@ -200,31 +348,20 @@
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8); 
         }
         
-        /* Brilho Holográfico Suave */
         .brilho-holografico {
             position: absolute; inset: 0; z-index: 10; pointer-events: none; border-radius: 24px;
-            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.15) 0%, transparent 50%);
-            opacity: var(--hover-opacity, 0); transition: opacity 0.4s;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(130, 196, 216, 0.15) 0%, rgba(92, 99, 181, 0.05) 40%, transparent 60%);
+            opacity: var(--hover-opacity, 0); transition: opacity 0.4s; mix-blend-mode: screen;
         }
         
-        /* Imagens Naturais, Nítidas e Claras */
-        .imagem-fundo-cartao { 
-            position: absolute; inset: 0; border-radius: 24px; z-index: 1; 
-            opacity: 0.6; transition: opacity 0.8s, transform 0.8s; 
-            background-size: cover; background-position: top center; 
-        }
-        .cartao-premium:hover .imagem-fundo-cartao { opacity: 1; transform: scale(1.05); }
+        .imagem-fundo-cartao { position: absolute; inset: 0; border-radius: 24px; z-index: 1; opacity: 0.6; transition: opacity 0.8s, transform 0.8s; background-size: cover; background-position: top center; filter: blur(0px) grayscale(10%); }
+        .cartao-premium:hover .imagem-fundo-cartao { opacity: 1; transform: scale(1.05); filter: blur(0px) grayscale(0%); }
         
         .fundo-projeto-1 { background-image: url('https://i.ibb.co/HT0hfPRK/Captura-de-tela-2026-03-28-212042.png'); } 
         .fundo-projeto-2 { background-image: url('https://i.ibb.co/mV9h6fqc/Captura-de-tela-2026-03-28-210550.png'); } 
         .fundo-projeto-3 { background-image: url('https://i.ibb.co/B5HNGsWr/Captura-de-tela-2026-03-28-211221.png'); }
         
-        /* Película Escura em baixo para leitura, Transparente em cima para foto nítida */
-        .camada-vidro-cartao { 
-            position: absolute; inset: 1px; border-radius: 23px; z-index: 1; 
-            background: linear-gradient(to bottom, rgba(1, 2, 5, 0.1) 0%, rgba(1, 2, 5, 0.95) 80%); 
-            transition: opacity 0.5s; pointer-events: none;
-        }
+        .camada-vidro-cartao { position: absolute; inset: 1px; border-radius: 23px; z-index: 2; background: linear-gradient(to bottom, rgba(1, 2, 5, 0.0) 0%, rgba(1, 2, 5, 0.95) 80%); pointer-events: none; transition: opacity 0.5s; }
         .cartao-premium:hover .camada-vidro-cartao { opacity: 0.8; }
         
         .conteudo-informacoes-cartao { position: relative; z-index: 4; display: flex; flex-direction: column; justify-content: flex-end; transform: translateZ(40px); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); height: 100%; pointer-events: none; }
@@ -243,9 +380,9 @@
         .texto-descritivo-cartao { font-size: clamp(0.9rem, 1vw, 1.05rem); color: rgba(255,255,255,0.9); line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
 
         /* ==========================================================================
-           10. RODAPÉ (FOOTER)
+           10. RODAPÉ (INTOCÁVEL)
            ========================================================================== */
-        footer { padding: 15vh 5vw 5vh 5vw; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; z-index: 10; gap: 30px; text-align: center; overflow: hidden; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        footer { padding: 15vh 5vw 5vh 5vw; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; z-index: 10; gap: 30px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         .texto-chamada-rodape { font-size: clamp(3.5rem, 9vw, 8rem); font-family: var(--fonte-titulos); font-weight: 700; line-height: 0.9; background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.1) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2; margin-bottom: 30px; letter-spacing: -2px; }
         .caixa-botoes-redes { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 50; width: 100%; margin-top: 20px; }
         
@@ -253,38 +390,136 @@
         .texto-direitos { font-family: var(--fonte-codigo); font-size: 0.8rem; color: var(--texto-mutado); letter-spacing: 2px; }
 
         /* ==========================================================================
-           11. RESPONSIVIDADE EXTREMA E ELEGANTE (MOBILE & TABLET)
+           10. ANIMAÇÕES DE ENTRADA DINÂMICAS COM ALTERNÂNCIA ESQUERDA/DIREITA
+           ========================================================================== */
+        .animacao-entrada-textos {
+            /* Animação será aplicada via GSAP */
+        }
+
+        .animacao-entrada-imagem {
+            /* Animação será aplicada via GSAP */
+        }
+
+        .animacao-revelar-manifesto {
+            /* Animação será aplicada via GSAP */
+        }
+
+        .animacao-revelar-manifesto-dir {
+            /* Animação será aplicada via GSAP */
+        }
+
+        .animacao-entrada-cartao {
+            /* Animação será aplicada via GSAP */
+        }
+
+        @keyframes slide-left-in {
+            0% {
+                opacity: 0;
+                transform: translateX(-80px) rotateY(10deg);
+                filter: blur(8px);
+            }
+            60% {
+                transform: translateX(10px) rotateY(-2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) rotateY(0deg);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes slide-right-in {
+            0% {
+                opacity: 0;
+                transform: translateX(80px) rotateY(-10deg);
+                filter: blur(8px);
+            }
+            60% {
+                transform: translateX(-10px) rotateY(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) rotateY(0deg);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes slide-up-scale {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+                filter: blur(6px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes glow-pulse-mobile {
+            0%, 100% {
+                box-shadow: 
+                    0 0 20px rgba(122, 193, 230, 0.4),
+                    0 0 40px rgba(74, 147, 198, 0.2),
+                    inset 0 0 20px rgba(122, 193, 230, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 30px rgba(122, 193, 230, 0.7),
+                    0 0 60px rgba(74, 147, 198, 0.4),
+                    inset 0 0 25px rgba(122, 193, 230, 0.2);
+            }
+        }
+
+        @keyframes shimmer-text {
+            0% {
+                background-position: -200% 0;
+                text-shadow: 0 0 10px rgba(122, 193, 230, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(122, 193, 230, 0.6);
+            }
+            100% {
+                background-position: 200% 0;
+                text-shadow: 0 0 10px rgba(122, 193, 230, 0.3);
+            }
+        }
+
+        /* ==========================================================================
+           11. RESPONSIVIDADE ORIGINAL DO MOBILE (FOTO SEGURA E CARTÕES EMPILHADOS)
            ========================================================================== */
         @media (max-width: 1024px) {
-            #secao-inicio { padding: 15vh 5vw 10vh 5vw; gap: 20px; }
-            .titulo-principal { font-size: clamp(2.8rem, 10vw, 3.8rem); }
-            .coluna-textos-inicio, .coluna-texto-manifesto { align-items: center; text-align: center; }
+            #secao-inicio { padding: 8vh 5vw 5vh 5vw; min-height: 100vh; justify-content: space-between; gap: 10px; }
+            .titulo-principal { font-size: clamp(2.3rem, 9vw, 3.5rem); line-height: 1.1; background: linear-gradient(90deg, #254e7a, #346a8d, #4a93c6, #7ac1e6, #254e7a); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer-text 3s ease-in-out infinite; }
+            .titulo-principal .c-roxo, .titulo-principal .c-ciano { -webkit-text-fill-color: transparent; }
+            .coluna-textos-inicio { gap: 15px; margin-bottom: 20px; }
+            .coluna-visual-inicio { margin-top: 0; gap: 15px; }
             .paragrafo-inicio { text-align: center; }
             .etiqueta-status-inicio, .etiqueta-codigo { margin-left: auto; margin-right: auto; }
             
-            .moldura-imagem-fluida { max-width: 350px; margin: 0 auto; }
-            .foto-perfil-inicio { max-height: 45vh; transform: scale(1); margin-bottom: 0; }
+            .moldura-imagem-fluida { max-width: 280px; margin: 0 auto; }
+            .foto-perfil-inicio { max-height: 40vh; transform: scale(1); margin-bottom: 0; }
+            .coluna-texto-manifesto { align-items: center; text-align: center; }
             
-            /* Grelha Mobile: Empilhados verticalmente para o novo efeito Esquerda/Direita/Esquerda */
-            .layout-grade-cartoes {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
+            .layout-grade-cartoes { display: grid; grid-template-columns: 1fr; gap: 40px; perspective: none; }
             
             .cartao-premium { 
-                min-height: 480px; padding: 25px; 
-                border-color: rgba(255, 255, 255, 0.15); 
-                box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(0, 240, 255, 0.1); 
-                background: var(--fundo-abismo);
+                min-height: 480px; 
+                padding: 25px; 
+                border-color: rgba(122, 193, 230, 0.3); 
+                box-shadow: 
+                    0 0 20px rgba(122, 193, 230, 0.4),
+                    0 0 40px rgba(74, 147, 198, 0.2),
+                    inset 0 0 20px rgba(122, 193, 230, 0.1);
+                animation: glow-pulse-mobile 3s ease-in-out infinite;
             }
-            
-            .conteudo-informacoes-cartao { align-items: flex-start; text-align: left; padding: 0; }
+            .conteudo-informacoes-cartao { align-items: flex-start; text-align: left; padding: 0; transform: translateZ(0) !important; }
             .cabecalho-cartao { width: 100%; }
-            
             .imagem-fundo-cartao { opacity: 0.9; filter: none; transform: scale(1); }
-            .camada-vidro-cartao { background: linear-gradient(to bottom, rgba(1, 2, 5, 0.1) 0%, rgba(1, 2, 5, 0.95) 100%); opacity: 1; }
             
             .botao-premium { width: 100%; justify-content: center; }
             .elemento-skew { transform: skewY(0) !important; } 
+            
+            .texto-chamada-rodape { font-size: clamp(2.5rem, 15vw, 8rem); }
         }
