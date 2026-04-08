@@ -10,20 +10,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+  
+    
 </head>
 <body>
 
     <main id="envoltorio-rolagem-suave">
         
-        <!-- SEÇÃO INÍCIO (HERO) -->
         <section id="secao-inicio" class="elemento-skew">
             
-            <!-- O SEU EFEITO DE MÁSCARA ROTATIVA APENAS NA 1ª DOBRA -->
             <div id="hero-bg-effect">
                 <div class="hero-camada-bg"></div>
                 <div class="hero-camada-fg"></div>
@@ -38,7 +36,6 @@
                     </div>
                     <h2 class="efeito-falha-digital" data-text="Olá, eu sou Caíque Alonso">Olá, eu sou Caíque Alonso</h2>
                     
-                    <!-- Cores reais nas sílabas -->
                     <h1 class="titulo-principal">
                         <span class="c-indigo">Dese</span><span class="c-ciano">nvolvedor</span><br>
                         <span class="c-indigo">de</span> <span class="c-ciano">Landing</span><br>
@@ -59,7 +56,6 @@
                 <div class="coluna-visual-inicio animacao-entrada-imagem">
                     <div class="moldura-imagem-fluida">
                         
-                        <!-- O NOVO EFEITO PREMIUM APLICADO AQUI -->
                         <div class="foto-glow-premium"></div>
 
                         <img src="https://i.ibb.co/qLGzsQvd/eusembgnew.png" alt="Caíque Alonso" class="foto-perfil-inicio" fetchpriority="high" decoding="async">
@@ -68,7 +64,6 @@
             </div>
         </section>
 
-        <!-- MARQUEE -->
         <div class="container-marquee elemento-skew">
             <div class="trilha-marquee">
                 <div class="texto-marquee">✦ EXPERIÊNCIAS IMERSIVAS  • ALTA PERFORMANCE  • DESIGN DE CONVERSÃO  • TECNOLOGIA WEB  •</div>
@@ -76,13 +71,11 @@
             </div>
         </div>
 
-        <!-- MANIFESTO -->
         <section id="secao-manifesto" class="elemento-skew">
             <div class="grade-layout-manifesto">
                 <div class="coluna-imagem-manifesto animacao-revelar-manifesto">
                     <div class="moldura-foto-manifesto">
                         <div class="anel-neon"></div>
-                        <!-- Foto atualizada com a classe corrigida -->
                         <img src="https://i.ibb.co/JFSkS3Nt/a2-JPG.png" alt="Caíque Alonso Manifesto" loading="lazy" decoding="async" class="imagem-manifesto-fade">
                     </div>
                 </div>
@@ -104,11 +97,10 @@
             </div>
         </section>
 
-        <!-- CARTÕES -->
         <section id="secao-grade-projetos" class="elemento-skew">
             <div class="layout-grade-cartoes rastreador-cartoes">
                 
-                <div class="cartao-premium elemento-com-interacao animacao-entrada-cartao">
+                <a href="https://espacomotivaacao.netlify.app/" target="_blank" style="text-decoration: none; color: inherit;" class="cartao-premium elemento-com-interacao animacao-entrada-cartao">
                     <div class="imagem-fundo-cartao fundo-projeto-1"></div>
                     <div class="brilho-holografico"></div>
                     <div class="camada-vidro-cartao"></div>
@@ -121,9 +113,9 @@
                         <h3 class="titulo-cartao">Espaço<br>MotivaAção</h3>
                         <p class="texto-descritivo-cartao">Plataforma imersiva de Psicopedagogia. Foco em clareza, confiança e captação de leads.</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="cartao-premium elemento-com-interacao animacao-entrada-cartao">
+                <a href="https://medemarcenaria.netlify.app/" target="_blank" style="text-decoration: none; color: inherit;" class="cartao-premium elemento-com-interacao animacao-entrada-cartao">
                 
                     <div class="imagem-fundo-cartao fundo-projeto-2"></div>
                     <div class="brilho-holografico"></div>
@@ -137,9 +129,9 @@
                         <h3 class="titulo-cartao">Mede<br>Marcenaria</h3>
                         <p class="texto-descritivo-cartao">Sofisticação em madeira traduzida para pixels. Design focado em produto.</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="cartao-premium elemento-com-interacao animacao-entrada-cartao">
+                <a href="https://emilylopesportfoliofotografia.netlify.app/" target="_blank" style="text-decoration: none; color: inherit;" class="cartao-premium elemento-com-interacao animacao-entrada-cartao">
                     <div class="imagem-fundo-cartao fundo-projeto-3"></div>
                     <div class="brilho-holografico"></div>
                     <div class="camada-vidro-cartao"></div>
@@ -152,19 +144,63 @@
                         <h3 class="titulo-cartao">Emily Lopes<br>Fotografia</h3>
                         <p class="texto-descritivo-cartao">Uma ode digital à precisão fotográfica. Layout desenhado como um visor óptico de alta resolução.</p>
                     </div>
-                </div>
+                </a>
                 
             </div>
         </section> 
 
-
-
-        <!-- FOOTER -->
         <footer class="elemento-skew">
             <div class="conteiner-rodape">
              
-                
-                <h2 class="texto-chamada-rodape titulo-animado-rodape">INICIE SEU PRÓXIMO PROJETO</h2>
+                <h2 class="texto-chamada-rodape titulo-animado-rodape">QUER SABER MAIS?</h2>
+
+                <div id="mc_embed_signup" class="animacao-entrada-textos elemento-com-interacao">
+                    <form action="https://app.us18.list-manage.com/subscribe/post?u=cefea12796e7a75ec436066b2&amp;id=c2e28da9df&amp;f_id=00eeabe6f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                        <div id="mc_embed_signup_scroll">
+                            <h2>Entre em contato</h2>
+                            <p class="subtitulo-form">Preencha os dados abaixo e entrarei em contato para tirarmos sua ideia do papel.</p>
+                            
+                            <div class="mc-linha-dupla">
+                                <div class="mc-field-group">
+                                    <label for="mce-FNAME">Nome</label>
+                                    <input type="text" name="FNAME" class=" text" id="mce-FNAME" value="" placeholder="Seu nome">
+                                </div>
+                                <div class="mc-field-group">
+                                    <label for="mce-LNAME">Sobrenome</label>
+                                    <input type="text" name="LNAME" class=" text" id="mce-LNAME" value="" placeholder="Seu sobrenome">
+                                </div>
+                            </div>
+                            
+                            <div class="mc-field-group">
+                                <label for="mce-EMAIL">Endereço de e-mail *</label>
+                                <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value="" placeholder="voce@email.com">
+                            </div>
+                            
+                            <div class="mc-field-group">
+                                <label for="mce-PHONE">Telefone / WhatsApp</label>
+                                <input type="text" name="PHONE" class="REQ_CSS" id="mce-PHONE" value="" placeholder="+55 (11) 90000-0000">
+                            </div>
+                            
+                            <div id="mce-responses" class="clear foot">
+                                <div class="response" id="mce-error-response" style="display: none;"></div>
+                                <div class="response" id="mce-success-response" style="display: none;"></div>
+                            </div>
+                            
+                            <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                                <input type="text" name="b_cefea12796e7a75ec436066b2_c2e28da9df" tabindex="-1" value="">
+                            </div>
+                            
+                            <div class="optionalParent">
+                                <div class="clear foot">
+                                    <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="botao-submit">
+                                        Solicitar Orçamento
+                                        <svg viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 
                 <div class="caixa-botoes-redes">
                     <a href="#" class="botao-premium botao-animado-rodape elemento-com-interacao">
@@ -185,6 +221,32 @@
         </footer>
 
     </main>
+
+     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+        window.fnames = new Array(); window.ftypes = new Array();
+        fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';
+        fnames[2]='LNAME';ftypes[2]='text';fnames[4]='PHONE';ftypes[4]='phone';
+        fnames[3]='ADDRESS';ftypes[3]='address';fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+        fnames[6]='COMPANY';ftypes[6]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    
+    if(!window.MC) { window.MC = {}; }
+    window.MC.smsPhoneData = { defaultCountryCode: 'BR', programs: [], smsProgramDataCountryNames: [] };
+    
+    function getCountryUnicodeFlag(countryCode) {
+       return countryCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    };
+    
+    function sanitizeHtml(str) {
+      if (typeof str !== 'string') return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/\//g, '&#x2F;');
+    }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

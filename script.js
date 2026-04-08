@@ -5,9 +5,6 @@
         gsap.ticker.add((tempo) => rolagemSuave.raf(tempo * 1000));
         gsap.ticker.lagSmoothing(0);
 
-        /* ==========================================================================
-           1. MÁSCARA ROTATIVA (O SEU EFEITO ORIGINAL)
-           ========================================================================== */
         let c = 45;
         
         function drawMask(){
@@ -16,9 +13,6 @@
         }
         requestAnimationFrame(drawMask);
 
-        /* ==========================================================================
-           2. CURSOR E HOVER CARDS (LÓGICA LIMPA)
-           ========================================================================== */
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
 
         if(window.innerWidth >= 1024) {
@@ -100,9 +94,6 @@
             });
         }
 
-        /* --------------------------------------------------------------------------
-           3. ANIMAÇÕES DE ENTRADA SIMPLES E ESTÁVEIS (GSAP)
-           -------------------------------------------------------------------------- */
         let animacoesMidia = gsap.matchMedia();
 
         animacoesMidia.add("(min-width: 1025px)", () => {
@@ -129,7 +120,6 @@
         });
 
         animacoesMidia.add("(max-width: 1024px)", () => {
-            // Efeito alternado ESQUERDA/DIREITA ao rolar para hero
             gsap.fromTo(".animacao-entrada-textos", 
                 { x: -80, opacity: 0, rotateY: 10 }, 
                 { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: "#secao-inicio", start: "top 80%" } }
@@ -139,7 +129,6 @@
                 { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", delay: 0.1, clearProps: "all", scrollTrigger: { trigger: "#secao-inicio", start: "top 80%" } }
             );
             
-            // Efeito alternado ESQUERDA/DIREITA ao rolar para manifesto
             gsap.fromTo(".animacao-revelar-manifesto", 
                 { x: -80, opacity: 0, rotateY: 10 }, 
                 { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 85%" } }
@@ -149,7 +138,6 @@
                 { x: 0, opacity: 1, rotateY: 0, duration: 1.2, ease: "power4.out", delay: 0.1, clearProps: "all", scrollTrigger: { trigger: "#secao-manifesto", start: "top 85%" } }
             );
 
-            // Efeito alternado ESQUERDA/DIREITA para cards ao rolar
             gsap.fromTo(".animacao-entrada-cartao:nth-child(1)", 
                 { x: -80, opacity: 0, rotateY: 10, scale: 0.95 }, 
                 { x: 0, opacity: 1, rotateY: 0, scale: 1, duration: 1.2, ease: "power3.out", clearProps: "all", scrollTrigger: { trigger: ".layout-grade-cartoes", start: "top 85%" } }
@@ -191,4 +179,167 @@
         if (textoManifesto) {
             gsap.to(textoManifesto, { backgroundPosition: "0% 0%", ease: "none", scrollTrigger: { trigger: "#secao-manifesto", start: "top 70%", end: "center center", scrub: true } });
         }
-
+   
+    
+    function sanitizeUrl(url) {
+      if (typeof url !== 'string') return '';
+      const trimmedUrl = url.trim().toLowerCase();
+      if (trimmedUrl.startsWith('javascript:') || trimmedUrl.startsWith('data:') || trimmedUrl.startsWith('vbscript:')) { return '#'; }
+      return url;
+    }
+    
+    const getBrowserLanguage = () => {
+      if (!window?.navigator?.language?.split('-')[1]) { return window?.navigator?.language?.toUpperCase(); }
+      return window?.navigator?.language?.split('-')[1];
+    };
+    
+    function getDefaultCountryProgram(defaultCountryCode, smsProgramData) {
+      if (!smsProgramData || smsProgramData.length === 0) { return null; }
+      const browserLanguage = getBrowserLanguage();
+      if (browserLanguage) {
+        const foundProgram = smsProgramData.find((program) => program?.countryCode === browserLanguage);
+        if (foundProgram) { return foundProgram; }
+      }
+      if (defaultCountryCode) {
+        const foundProgram = smsProgramData.find((program) => program?.countryCode === defaultCountryCode);
+        if (foundProgram) { return foundProgram; }
+      }
+      return smsProgramData[0];
+    }
+    
+    function updateSmsLegalText(countryCode, fieldName) {
+      if (!countryCode || !fieldName) { return; }
+      const programs = window?.MC?.smsPhoneData?.programs;
+      if (!programs || !Array.isArray(programs)) { return; }
+      const program = programs.find(program => program?.countryCode === countryCode);
+      if (!program || !program.requiredTemplate) { return; }
+      const legalTextElement = document.querySelector('#legal-text-' + fieldName);
+      if (!legalTextElement) { return; }
+      
+      const divRegex = new RegExp('</?[div][^>]*>', 'gi');
+      const template = program.requiredTemplate.replace(divRegex, '');
+      
+      legalTextElement.textContent = '';
+      const parts = template.split(/(<a href=".*?" target=".*?">.*?<\/a>)/g);
+      parts.forEach(function(part) {
+        if (!part) { return; }
+        const anchorMatch = part.match(/<a href="(.*?)" target="(.*?)">(.*?)<\/a>/);
+        if (anchorMatch) {
+          const linkElement = document.createElement('a');
+          linkElement.href = sanitizeUrl(anchorMatch[1]);
+          linkElement.target = sanitizeHtml(anchorMatch[2]);
+          linkElement.textContent = sanitizeHtml(anchorMatch[3]);
+          legalTextElement.appendChild(linkElement);
+        } else {
+          legalTextElement.appendChild(document.createTextNode(part));
+        }
+      });
+    }
+    
+    function generateDropdownOptions(smsProgramData) {
+      if (!smsProgramData || smsProgramData.length === 0) { return ''; }
+      var programs = false ? smsProgramData.filter(function(p, i, arr) { return arr.findIndex(function(q) { return q.countryCode === p.countryCode; }) === i; }) : smsProgramData;
+      return programs.map(program => {
+        const countryName = getCountryName(program.countryCode);
+        const callingCode = program.countryCallingCode || '';
+        const sanitizedCountryCode = sanitizeHtml(program.countryCode || '');
+        const sanitizedCountryName = sanitizeHtml(countryName || '');
+        const sanitizedCallingCode = sanitizeHtml(callingCode || '');
+        return '<option value="' + sanitizedCountryCode + '">' + sanitizedCountryName + ' ' + sanitizedCallingCode + '</option>';
+      }).join('');
+    }
+    
+    function getCountryName(countryCode) {
+      if (window.MC?.smsPhoneData?.smsProgramDataCountryNames && Array.isArray(window.MC.smsPhoneData.smsProgramDataCountryNames)) {
+        for (let i = 0; i < window.MC.smsPhoneData.smsProgramDataCountryNames.length; i++) {
+          if (window.MC.smsPhoneData.smsProgramDataCountryNames[i].code === countryCode) {
+            return window.MC.smsPhoneData.smsProgramDataCountryNames[i].name;
+          }
+        }
+      }
+      return countryCode;
+    }
+    
+    function getDefaultPlaceholder(countryCode) {
+      if (!countryCode || typeof countryCode !== 'string') { return '+1 000 000 0000'; }
+      var mockPlaceholders = [
+        { countryCode: 'US', placeholder: '+1 000 000 0000', helpText: 'Include the US country code +1 before the phone number' },
+        { countryCode: 'GB', placeholder: '+44 0000 000000', helpText: 'Include the GB country code +44 before the phone number' },
+        { countryCode: 'BR', placeholder: '+55 00 00000-0000', helpText: 'Inclua o código BR +55 antes do número' }
+      ];
+      const selectedPlaceholder = mockPlaceholders.find(function(item) { return item && item.countryCode === countryCode; });
+      return selectedPlaceholder ? selectedPlaceholder.placeholder : mockPlaceholders[0].placeholder;
+    }
+    
+    function updatePlaceholder(countryCode, fieldName) {
+      if (!countryCode || !fieldName) { return; }
+      const phoneInput = document.querySelector('#mce-' + fieldName);
+      if (!phoneInput) { return; }
+      const placeholder = getDefaultPlaceholder(countryCode);
+      if (placeholder) { phoneInput.placeholder = placeholder; }
+    }
+    
+    function updateCountryCodeInstruction(countryCode, fieldName) {
+      updatePlaceholder(countryCode, fieldName);
+    }
+    
+    function initializeSmsPhoneDropdown(fieldName) {
+      if (!fieldName || typeof fieldName !== 'string') { return; }
+      const dropdown = document.querySelector('#country-select-' + fieldName);
+      const displayFlag = document.querySelector('#flag-display-' + fieldName);
+      if (!dropdown || !displayFlag) { return; }
+    
+      const smsPhoneData = window.MC?.smsPhoneData;
+      if (smsPhoneData && smsPhoneData.programs && Array.isArray(smsPhoneData.programs)) {
+        dropdown.innerHTML = generateDropdownOptions(smsPhoneData.programs);
+      }
+    
+      const defaultProgram = getDefaultCountryProgram(smsPhoneData?.defaultCountryCode, smsPhoneData?.programs);
+      if (defaultProgram && defaultProgram.countryCode) {
+        dropdown.value = defaultProgram.countryCode;
+        const flagSpan = displayFlag?.querySelector('#flag-emoji-' + fieldName);
+        if (flagSpan) {
+          flagSpan.textContent = getCountryUnicodeFlag(defaultProgram.countryCode);
+          flagSpan.setAttribute('aria-label', sanitizeHtml(defaultProgram.countryCode) + ' flag');
+        }
+        updateSmsLegalText(defaultProgram.countryCode, fieldName);
+        updatePlaceholder(defaultProgram.countryCode, fieldName);
+        updateCountryCodeInstruction(defaultProgram.countryCode, fieldName);
+      }
+      
+      var smsField = Object.values({"EMAIL":{"name":"EMAIL","label":"Endereço de e-mail","type":"email","required":true},"FNAME":{"name":"FNAME","label":"Nome","type":"text","required":false},"LNAME":{"name":"LNAME","label":"Sobrenome","type":"text","required":false},"PHONE":{"name":"PHONE","label":"Telefone","type":"phone","required":false}}).find(function(f) { return f.name === fieldName && f.type === 'smsphone'; });
+      var isRequired = smsField ? smsField.required : false;
+      var shouldAppendCountryCode = true;
+      
+      var phoneInput = document.querySelector('#mce-' + fieldName);
+      if (phoneInput && defaultProgram.countryCallingCode && shouldAppendCountryCode) {
+        phoneInput.value = defaultProgram.countryCallingCode;
+      }
+    
+      displayFlag?.addEventListener('click', function(e) { dropdown.focus(); });
+    
+      dropdown?.addEventListener('change', function() {
+        const selectedCountry = this.value;
+        if (!selectedCountry || typeof selectedCountry !== 'string') { return; }
+        const flagSpan = displayFlag?.querySelector('#flag-emoji-' + fieldName);
+        if (flagSpan) {
+          flagSpan.textContent = getCountryUnicodeFlag(selectedCountry);
+          flagSpan.setAttribute('aria-label', sanitizeHtml(selectedCountry) + ' flag');
+        }
+        const selectedProgram = window.MC?.smsPhoneData?.programs.find(function(program) { return program && program.countryCode === selectedCountry; });
+        if (phoneInput && selectedProgram.countryCallingCode && shouldAppendCountryCode) {
+          phoneInput.value = selectedProgram.countryCallingCode;
+        }
+        updateSmsLegalText(selectedCountry, fieldName);
+        updatePlaceholder(selectedCountry, fieldName);
+        updateCountryCodeInstruction(selectedCountry, fieldName);
+      });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const smsPhoneFields = document.querySelectorAll('[id^="country-select-"]');
+      smsPhoneFields.forEach(function(dropdown) {
+        const fieldName = dropdown?.id.replace('country-select-', '');
+        initializeSmsPhoneDropdown(fieldName);
+      });
+    });
